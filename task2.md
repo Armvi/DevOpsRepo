@@ -1,15 +1,15 @@
 #CV
 
-#Info
-**Name**: Igor Kontsevich
-**Email**: secretkeeper.ik@gmail.com
-**City**: Minks, Belarus
-**GitHub**: [github.com](https://github.com/Armvi)
+#Info  
+**Name**: Igor Kontsevich  
+**Email**: secretkeeper.ik@gmail.com  
+**City**: Minks, Belarus  
+**GitHub**: [github.com](https://github.com/Armvi)  
 
-#Aim
+#Aim  
 Learning
 
-#Education
+#Education  
 **Polotsk State University**: 2019-2023
 
 
