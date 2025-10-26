@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+export TASK3_DIR="/opt/app"
+export TASK3_LOG_FILE="log.txt"
+
+export TASK3_SCRIPT_NAME="write_random_string.sh"
+export TASK3_SERVICE_NAME="write_random_string.service"
+export TASK3_TIMER_NAME="write_random_string.timer"
+
+
+sudo mkdir -p "$TASK3_DIR"
+sudo touch  "$TASK3_DIR/$TASK3_LOG_FILE"
+sudo cp "$TASK3_SCRIPT_NAME" "$TASK3_DIR"
+sudo chmod +x "$TASK3_DIR/$TASK3_SCRIPT_NAME"
+
+
+sudo tee /etc/systemd/system/$TASK3_SERVICE_NAME > /dev/null <<EOF
+[Unit]
+Description=Write random string to log
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/app
+Environment=TASK3_DIR=/opt/app
+Environment=TASK3_LOG_FILE=log.txt
+ExecStart=/opt/app/write_random_string.sh
+Restart=always
+RestartSec=5
+EOF
+
+sudo tee /etc/systemd/system/$TASK3_TIMER_NAME > /dev/null <<EOF
+[Unit]
+Description=Run write_random_string.sh every 17 seconds
+
+[Timer]
+OnBootSec=10s
+OnUnitActiveSec=17s
+Unit=$TASK3_SERVICE_NAME
+
+[Install]
+WantedBy=timers.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now $TASK3_TIMER_NAME
+
+
