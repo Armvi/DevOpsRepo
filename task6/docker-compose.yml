@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+
+  kanban-db:
+    build:
+      context: ./kanban-db
+    container_name: kanban-postgres
+    environment:
+      POSTGRES_DB: kanban
+      POSTGRES_USER: kanban
+      POSTGRES_PASSWORD: kanban
+    ports:
+      - "5432:5432"
+    networks:
+      - kanban-net
+
+  kanban-backend:
+    build:
+      context: ./kanban-backend
+    container_name: kanban-backend
+    depends_on:
+      - kanban-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://kanban-postgres:5432/kanban
+      SPRING_DATASOURCE_USERNAME: kanban
+      SPRING_DATASOURCE_PASSWORD: kanban
+    ports:
+      - "8081:8080"
+    networks:
+      - kanban-net
+
+  kanban-frontend:
+    build:
+      context: ./kanban-frontend
+    container_name: kanban-frontend
+    depends_on:
+      - kanban-backend
+    ports:
+      - "8080:80"
+    networks:
+      - kanban-net
+
+networks:
+  kanban-net:
+    driver: bridge
