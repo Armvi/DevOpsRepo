@@ -1,0 +1,9 @@
+---
+- name: vm setup
+  hosts: vms
+  become: yes
+
+  roles:
+    - update
+    - nginx
+    - nginx_page

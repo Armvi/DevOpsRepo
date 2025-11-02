@@ -1,0 +1,5 @@
+---
+- name: change default package
+  ansible.builtin.copy:
+    src: files/index.html
+    dest: /var/www/html/index.html
