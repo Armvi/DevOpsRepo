@@ -21,10 +21,10 @@ jobs:
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
 
       - name: Build backend image
-        run: docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/task6/kanban-backend:latest ./kanban-backend
+        run: docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/task6/kanban-backend:latest ./task6/kanban-backend
 
       - name: Build frontend image
-        run: docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/task6/kanban-frontend:latest ./kanban-frontend
+        run: docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/task6/kanban-frontend:latest ./task6/kanban-frontend
 
       - name: Push images to GHCR
         run: |
