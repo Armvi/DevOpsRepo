@@ -41,6 +41,71 @@ services:
     networks:
       - kanban-net
 
+  nginx:
+    image: nginx:latest
+    container_name: kanban-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/selfsigned.crt:/etc/nginx/selfsigned.crt:ro
+      - ./nginx/selfsigned.key:/etc/nginx/selfsigned.key:ro
+    depends_on:
+      - kanban-frontend
+      - kanban-backend
+    networks:
+      - kanban-net
+
+  loki:
+    image: grafana/loki:2.9.0
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki-config.yaml:/etc/loki/local-config.yaml
+      - loki_wal:/wal
+      - loki_chunks:/loki/chunks
+      - loki_index:/loki/index
+    networks:
+      - kanban-net
+
+  promtail:
+    image: grafana/promtail:2.9.0
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ./promtail-config.yaml:/etc/promtail/config.yaml
+    command: -config.file=/etc/promtail/config.yaml
+    networks:
+      - kanban-net
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - kanban-net
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - loki
+      - prometheus
+    networks:
+      - kanban-net
+
 networks:
   kanban-net:
     driver: bridge
+
+volumes:
+  loki_wal:
+  loki_chunks:
+  loki_index:

@@ -1,0 +1,34 @@
+{
+  "id": null,
+  "title": "Kanban Backend Logs",
+  "tags": [],
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "panels": [
+    {
+      "title": "All Logs",
+      "type": "logs",
+      "datasource": { "type": "loki", "uid": "Loki" },
+      "targets": [
+        { "expr": "{job=\"docker\"}" }
+      ]
+    },
+    {
+      "title": "Error Logs",
+      "type": "logs",
+      "datasource": { "type": "loki", "uid": "Loki" },
+      "targets": [
+        { "expr": "{job=\"docker\"} |= \"ERROR\"" }
+      ]
+    },
+    {
+      "title": "API Calls",
+      "type": "logs",
+      "datasource": { "type": "loki", "uid": "Loki" },
+      "targets": [
+        { "expr": "{job=\"docker\"} |= \"/api/\"" }
+      ]
+    }
+  ]
+}

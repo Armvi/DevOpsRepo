@@ -1,0 +1,34 @@
+{
+  "id": null,
+  "title": "Kanban Backend Metrics",
+  "tags": [],
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "panels": [
+    {
+      "title": "HTTP Requests",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "Prometheus" },
+      "targets": [
+        { "expr": "http_server_requests_seconds_count{job=\"kanban-backend\"}", "legendFormat": "requests" }
+      ]
+    },
+    {
+      "title": "CPU Usage",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "Prometheus" },
+      "targets": [
+        { "expr": "process_cpu_usage{job=\"kanban-backend\"}", "legendFormat": "cpu" }
+      ]
+    },
+    {
+      "title": "Memory Usage",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "Prometheus" },
+      "targets": [
+        { "expr": "jvm_memory_used_bytes{job=\"kanban-backend\"}", "legendFormat": "memory" }
+      ]
+    }
+  ]
+}
