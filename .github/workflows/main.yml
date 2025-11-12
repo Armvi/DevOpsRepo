@@ -1,0 +1,31 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
+
+      - name: Build backend image
+        run: docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/kanban-backend:latest ./kanban-backend
+
+      - name: Build frontend image
+        run: docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/kanban-frontend:latest ./kanban-frontend
+
+      - name: Push images to GHCR
+        run: |
+          docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/kanban-backend:latest
+          docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/kanban-frontend:latest
