@@ -1,4 +1,4 @@
-FROM maven:3.8-jdk-8 AS build
+FROM maven:3.8-jdk-8-alpine AS build
 WORKDIR /app
 
 COPY pom.xml .
