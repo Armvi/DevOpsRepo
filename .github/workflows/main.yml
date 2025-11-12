@@ -28,5 +28,5 @@ jobs:
 
       - name: Push images to GHCR
         run: |
-          docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/kanban-backend:latest
-          docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/kanban-frontend:latest
+          docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/task6/kanban-backend:latest
+          docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/task6/kanban-frontend:latest
