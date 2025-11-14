@@ -26,10 +26,10 @@ jobs:
           password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Build backend image
-        run: docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/kanban-app:latest ./task6/kanban-backend
+        run: docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/kanban-app:latest ./task8/kanban-backend
 
       - name: Build frontend image
-        run: docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/kanban-frontend:latest ./task6/kanban-frontend
+        run: docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/kanban-frontend:latest ./task8/kanban-frontend
 
       - name: Push images to GHCR
         run: |
