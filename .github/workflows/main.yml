@@ -43,7 +43,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            export GHCR_USERNAME=${{ secrets.GHCR_USERNAME }}
+            echo "GHCR_USERNAME=${{ secrets.GHCR_USERNAME }}" > /opt/armvi-kanban/.env
             cd /opt
             rm -rf armvi-kanban
             mkdir -p armvi-kanban
@@ -78,6 +78,5 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            unset GHCR_USERNAME
             docker logout ghcr.io
 
