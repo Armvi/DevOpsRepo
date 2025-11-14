@@ -43,7 +43,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            export GHCR_USERNAME=${{ secrets.GHCR_US }}
+            export GHCR_USERNAME=${{ secrets.GHCR_USERNAME }}
             cd /opt
             rm -rf armvi-kanban
             mkdir -p armvi-kanban
