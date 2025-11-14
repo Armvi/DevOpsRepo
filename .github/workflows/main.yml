@@ -55,7 +55,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          source: 'task6'
+          source: 'task8'
           target: '/opt/armvi-kanban'
           strip_components: 1
 
