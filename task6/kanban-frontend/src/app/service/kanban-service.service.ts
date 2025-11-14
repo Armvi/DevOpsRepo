@@ -15,10 +15,12 @@ export class KanbanService {
   constructor(private http: HttpClient) { }
 
   retrieveAllKanbanBoards(): Observable<Kanban[]> {
+    console.log("get canbans")
     return this.http.get<Kanban[]>(this.kanbanAppUrl + '/kanbans/');
   }
 
   retrieveKanbanById(id: String): Observable<Kanban> {
+    console.log("get canban by id")
     return this.http.get<Kanban>(this.kanbanAppUrl + '/kanbans/' + id);
   }
 
@@ -26,6 +28,7 @@ export class KanbanService {
     let headers = new HttpHeaders({'Content-Type': 'application/json' });
     let options = { headers: headers };
     let jsonObject = this.prepareTiTleJsonObject(title);
+    console.log("post canban")
     return this.http.post<string>(
       this.kanbanAppUrl + '/kanbans/',
       jsonObject,
@@ -36,6 +39,7 @@ export class KanbanService {
   saveNewTaskInKanban(kanbanId: String, task: Task): Observable<Task> {
     let headers = new HttpHeaders({'Content-Type': 'application/json' });
     let options = { headers: headers };
+    console.log("create task")
     return this.http.post<Task>(
       this.kanbanAppUrl + '/kanbans/' + kanbanId + '/tasks/',
       task,
