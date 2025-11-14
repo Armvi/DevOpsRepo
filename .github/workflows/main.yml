@@ -69,7 +69,7 @@ jobs:
             cd /opt/armvi-kanban
             docker-compose down
             docker-compose pull
-            docker-compose up -d
+            docker compose up -d --remove-orphans
       
       - name: Finality
         uses: appleboy/ssh-action@v0.1.10
