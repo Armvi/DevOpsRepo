@@ -43,11 +43,11 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            echo "GHCR_USERNAME=${{ secrets.GHCR_USERNAME }}" > /opt/armvi-kanban/.env
             cd /opt
             rm -rf armvi-kanban
             mkdir -p armvi-kanban
             echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
+            echo "GHCR_USERNAME=${{ secrets.GHCR_USERNAME }}" > /opt/armvi-kanban/.env
 
       - name: Copy configs to server
         uses: appleboy/scp-action@v0.1.7
